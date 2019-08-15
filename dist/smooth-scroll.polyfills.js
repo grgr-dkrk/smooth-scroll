@@ -10,7 +10,7 @@
  * closest() polyfill
  * @link https://developer.mozilla.org/en-US/docs/Web/API/Element/closest#Polyfill
  */
-if (window.Element && !Element.prototype.closest) {
+if (typeof window !== "undefined" && window.Element && !Element.prototype.closest) {
 	Element.prototype.closest = function(s) {
 		var matches = (this.document || this.ownerDocument).querySelectorAll(s),
 			i,
@@ -29,7 +29,7 @@ if (window.Element && !Element.prototype.closest) {
  */
 (function () {
 
-	if (typeof window.CustomEvent === "function") return false;
+	if (typeof window === "undefined" || typeof window.CustomEvent === "function") return false;
 
 	function CustomEvent(event, params) {
 		params = params || { bubbles: false, cancelable: false, detail: undefined };
@@ -50,6 +50,7 @@ if (window.Element && !Element.prototype.closest) {
  * @license MIT
  */
 (function() {
+	if (typeof window === 'undefined') return;
 	var lastTime = 0;
 	var vendors = ['ms', 'moz', 'webkit', 'o'];
 	for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
